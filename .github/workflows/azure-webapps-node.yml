@@ -20,12 +20,19 @@ jobs:
             "https://auth-project-web-latest.onrender.com"
           )
 
+          failed=()
           for url in "${urls[@]}"; do
             response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
             if [ "$response" -eq 200 ]; then
-              echo "$url is up and running!"
+              echo "✅ $url is up and running!"
             else
               echo "⚠️ $url returned status code $response"
-              exit 1  # Fail workflow if any API is down
+              failed+=("$url ($response)")
             fi
           done
+
+          if [ "${#failed[@]}" -ne 0 ]; then
+            echo "❌ The following APIs failed:"
+            printf '%s\n' "${failed[@]}"
+            exit 1  # 🚨 Fails the workflow if any API is down
+          fi
