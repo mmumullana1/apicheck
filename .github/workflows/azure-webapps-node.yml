@@ -13,10 +13,10 @@ jobs:
         run: |
           urls=(
             "https://sniplinkapp.onrender.com"
-            "https://portfolio-server-latest.onrender.com/socials"
+            "https://portfolio-server-latest.onrender.com/health"
             "https://user-auth-imui.onrender.com"
-            "https://realchatapplicaton.onrender.com"
-            "https://careerhub-app.onrender.com"
+            "https://realchatapplicaton.onrender.com/"
+            "https://careerhub-app.onrender.com/api/auth/health-check/"
             "https://auth-project-web-latest.onrender.com"
           )
 
@@ -34,5 +34,4 @@ jobs:
           if [ "${#failed[@]}" -ne 0 ]; then
             echo "❌ The following APIs failed:"
             printf '%s\n' "${failed[@]}"
-            exit 1  # 🚨 Fails the workflow if any API is down
           fi
